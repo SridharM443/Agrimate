@@ -3,7 +3,7 @@
 Agrimate is a comprehensive agriculture support platform designed to help farmers and individuals make smarter decisions by integrating crop prediction, weather forecasting, and expense tracking into one unified solution.
 
 # Features
-#1. Crop Prediction
+# 1. Crop Prediction
 
 Predicts the most suitable crop to cultivate based on:
 
