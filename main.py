@@ -31,3 +31,9 @@ def predict_crop(data: CropRequest):
         "recommended_crop": prediction,
         "probability": float(confidence)
     }
+
+@app.get("/")
+def home():
+    return {"message": "Welcome to the Agrimate ML API 🚀. Use /predict to get crop recommendations."}
+
+
