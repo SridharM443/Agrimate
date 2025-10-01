@@ -1,23 +1,23 @@
-# Use OpenJDK 17
-FROM eclipse-temurin:17-jdk-alpine
+# Use Maven to build the JAR
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-# Copy Maven wrapper and pom first to cache dependencies
-COPY mvnw .
-COPY .mvn .mvn
+# Copy pom.xml and download dependencies
 COPY pom.xml .
+RUN mvn dependency:go-offline
 
-RUN ./mvnw dependency:go-offline
+# Copy source and build the app
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy all project files
-COPY . .
+# Use a smaller JDK image for running
+FROM eclipse-temurin:17-jdk-alpine
 
-# Build the app
-RUN ./mvnw clean package -DskipTests
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-# Expose the port
 EXPOSE 8080
+ENV PORT=8080
 
-# Run the Spring Boot jar
-CMD ["java", "-jar", "target/agrimate-0.0.1-SNAPSHOT.jar"]
+CMD ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
