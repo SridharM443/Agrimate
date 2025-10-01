@@ -1,23 +1,26 @@
-# Use Maven to build the JAR
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-
+# ===== Build Stage =====
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy pom.xml and download dependencies
+# Copy pom.xml and download dependencies first (for caching)
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline -B
 
-# Copy source and build the app
+# Copy source code
 COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Use a smaller JDK image for running
+# Package the app and repackage into fat jar
+RUN mvn clean package spring-boot:repackage -DskipTests
+
+# ===== Run Stage =====
 FROM eclipse-temurin:17-jdk-alpine
-
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
 
+# Copy the fat JAR from build stage
+COPY --from=build /app/target/*SNAPSHOT.jar app.jar
+
+# Expose port (Render usually sets $PORT env)
 EXPOSE 8080
-ENV PORT=8080
 
-CMD ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
+# Run the Spring Boot app
+ENTRYPOINT ["java", "-jar", "app.jar"]
