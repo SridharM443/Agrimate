@@ -51,7 +51,7 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!-- Database: use PostgreSQL on Render -->
+        <!-- Database: PostgreSQL -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -85,14 +85,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- H2 Database (optional for local testing) -->
+        <!-- H2 (optional local testing) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Spring Boot Test -->
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -101,41 +101,21 @@
     </dependencies>
 
     <build>
-             <finalName>app</finalName> <!-- JAR will always be app.jar -->
-    <plugins>
-        <!-- Spring Boot plugin ensures fat/executable JAR -->
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>${spring-boot.version}</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal> <!-- makes executable JAR -->
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+        <finalName>app</finalName>
 
-        <!-- Compiler plugin -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
-            <configuration>
-                <source>${java.version}</source>
-                <target>${java.version}</target>
-                <compilerArgs>
-                    <arg>-parameters</arg>
-                </compilerArgs>
-            </configuration>
-        </plugin>
-    </plugins>
         <plugins>
             <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Compiler plugin -->
@@ -152,7 +132,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire plugin (for running tests) -->
+            <!-- Surefire plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
