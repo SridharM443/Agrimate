@@ -12,7 +12,7 @@
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/crops/predict", {
+      const response = await fetch("https://agrimate-springboot.onrender.com/api/crops/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -31,4 +31,5 @@
       document.getElementById("resultBox").innerText = "❌ Error fetching recommendation: " + error;
       console.error("Fetch Error:", error);
     }
+
   });
