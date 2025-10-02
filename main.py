@@ -1,11 +1,21 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 
 # Load model
 model = joblib.load("model.pkl")
 
 app = FastAPI()
+
+# ✅ Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["https://your-frontend.onrender.com"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class CropRequest(BaseModel):
     N: int
@@ -28,12 +38,10 @@ def predict_crop(data: CropRequest):
     confidence = max(probabilities)
 
     return {
-        "recommended_crop": prediction,
+        "recommendedCrop": prediction,
         "probability": float(confidence)
     }
 
 @app.get("/")
 def home():
     return {"message": "Welcome to the Agrimate ML API 🚀. Use /predict to get crop recommendations."}
-
-
