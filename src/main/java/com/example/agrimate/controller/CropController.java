@@ -16,6 +16,11 @@ public class CropController {
         this.cropService = cropService;
     }
 
+    @GetMapping("/")
+    public String healthCheck() {
+        return "App is running!";
+    }
+
     @PostMapping("/predict")
     public CropResponse predictCrop(@RequestBody CropRequest cropRequest) {
         return cropService.predictCrop(cropRequest);
