@@ -12,7 +12,7 @@
     };
 
     try {
-      const response = await fetch("https://agrimate-springboot.onrender.com/api/crops/predict", {
+      const response = await fetch("https://agrimate-gyaz.onrender.com/predict/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -33,3 +33,4 @@
     }
 
   });
+
