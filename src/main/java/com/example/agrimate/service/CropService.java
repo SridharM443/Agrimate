@@ -34,7 +34,7 @@ public class CropService {
         mlRequest.put("rainfall", cropRequest.rainfall);
 
         // 🔹 Send request to ML API (http://localhost:8000/predict)
-        String mlApiUrl = "http://localhost:5001/predict";
+        String mlApiUrl = "https://agrimate-gyaz.onrender.com/predict";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(mlRequest, headers);
