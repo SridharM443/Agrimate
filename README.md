@@ -78,7 +78,7 @@ MongoDB Atlas / MySQL / PostgreSQL (based on configuration)
 - If you don't have login credentials then click the Signup option
 - Now you are on the sigup page fill those details and login with those credentials.
 - Now you can view the Dashboard of the Expense Tracker page
-- In this page you can add, modify and delete the expense
+- In this page you can add, modify and delete the expense.
 
 # TOOLS USED
 <img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/65ed79b7-8697-4ae1-931f-b70312a96507" />
